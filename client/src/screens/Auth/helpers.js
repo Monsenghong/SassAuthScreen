@@ -15,20 +15,21 @@ export const LoginAuth = async (
   //Get Auth id token from Firebase
   let token = await firebase
     .auth()
-    .currentUser.getIdToken()
+    .currentUser?.getIdToken()
     .catch((err) => {
       fetchFailure(err);
     });
 
   //server authentication, returns jwt token
+  console.log("auth:"+authRes)
   let email = authRes.user.email;
+
   let data = { email, token };
   let authServerRes = await axios.post(`/auth/login`, data).catch((err) => {
     fetchFailure(err);
   });
 
   let validToken = isValidToken(authServerRes.data.token, fetchFailure);
-
   let id = validToken.user;
   let username = authRes.user.displayName;
   let photo = authRes.user.photoURL;

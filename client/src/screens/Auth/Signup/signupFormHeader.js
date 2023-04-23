@@ -26,7 +26,7 @@ const SignupFormHeader = () => (
   <Wrapper>
     <Title>Sign-Up for an Account</Title>
     <AltText>
-      <Link href="/auth/login">
+      <Link href="/">
         <a>Already Have an Account? Login here</a>
       </Link>
     </AltText>

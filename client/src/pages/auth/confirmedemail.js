@@ -6,6 +6,6 @@ const ConfirmedEmailPage = () => {
   return <ConfirmedEmail />;
 };
 
-ConfirmedEmailPage.Layout = Layout;
+//ConfirmedEmailPage.Layout = Layout;
 
 export default ConfirmedEmailPage;

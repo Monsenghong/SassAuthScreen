@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Formik } from 'formik';
 import { useRouter } from 'next/router';
 
 import AuthContext from '../../../utils/authContext';
@@ -7,17 +6,16 @@ import ApiContext from '../../../utils/apiContext';
 import { ValidSchema, SignupAuth } from '../helpers';
 
 import SEO from '../../../components/Marketing/Layout/seo';
-import ErrorText from '../../../components/Common/errorText';
-import InputWrapper from '../../../components/Common/forms/TextInputWrapper';
 import Button from '../../../components/Auth/Buttons/authButton';
-import AuthCard from '../../../components/Auth/authCard';
-import Label from '../../../components/Auth/authFormLabel';
-import Input from '../../../components/Common/forms/TextInput';
-import ContinueWith from '../../../components/Auth/continueWith';
-import GoogleButton from '../../../components/Auth/Buttons/googleButton';
 import LoadingOverlay from '../../../components/Common/loadingOverlay';
 import SignUpFormHeader from './signupFormHeader';
-
+import AuthLayout from '../../../components/Auth/AuthLayout';
+import SignUpLogo from '../../../../public/auth/register.svg';
+import SignUpHeader from '../../../components/Auth/header';
+import Link from 'next/dist/client/link';
+import { Row, Col } from 'antd';
+import Image from 'next/dist/client/image';
+import { Form, Input } from 'antd';
 // TODO: replace with actual data
 const getData = () => ({
   site: {
@@ -26,6 +24,13 @@ const getData = () => ({
     }
   }
 });
+
+const InputStyle = { height: '50px', borderRadius: '8px' };
+
+const SignUpBtn = {
+  width: '146px',
+  height: ' 44px'
+};
 
 const Signup = () => {
   const location = useRouter();
@@ -111,63 +116,56 @@ const Signup = () => {
       <SEO seoData={seoData} />
       <div>
         {isLoading && <LoadingOverlay />}
-        <SignUpFormHeader />
 
-        <AuthCard>
-          <Formik
-            validationSchema={ValidSchema}
-            initialValues={{ email: '', password: '', username: '' }}
-            onSubmit={handleSubmit}
+        <AuthLayout
+          navText={'Already have an account?'}
+          imgUrl={SignUpLogo}
+          authBtn={<Link href="/auth/login">Login</Link>}
+          header={<SignUpHeader headerText={'Welcome to Propel'} pText={'Register your account'} />}
+        >
+          <Form
+            onFinish={handleSubmit}
+            name="basic"
+            labelCol={{ span: 8 }}
+            wrapperCol={{ span: 24 }}
+            style={{ maxWidth: '800px', marginTop: '22px' }}
           >
-            {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => (
-              <form onSubmit={handleSubmit}>
-                <Label htmlFor="email">Email:</Label>
-                <InputWrapper>
-                  <Input
-                    type="email"
-                    name="email"
-                    id="email"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.email}
-                    data-test-id="email"
-                  />
-                </InputWrapper>
-                {errors.email && touched.email && <ErrorText>{errors.email}</ErrorText>}
-                <Label htmlFor="username">First and Last Name:</Label>
-                <InputWrapper>
-                  <Input
-                    type="text"
-                    name="username"
-                    id="username"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.username}
-                    data-test-id="username"
-                  />
-                </InputWrapper>
-                {errors.username && touched.username && <ErrorText>{errors.username}</ErrorText>}
-                <Label htmlFor="password">Password:</Label>
-                <InputWrapper>
-                  <Input
-                    type="password"
-                    name="password"
-                    id="password"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.password}
-                    data-test-id="password"
-                  />
-                </InputWrapper>
-                {errors.password && touched.password && <ErrorText>{errors.password}</ErrorText>}
-                <Button type="submit">SignUp</Button>
-              </form>
-            )}
-          </Formik>
+            <Form.Item
+              name="username"
+              rules={[{ required: true, message: 'Please input your username!' }]}
+            >
+              <Input placeholder="Username" style={InputStyle} />
+            </Form.Item>
 
-          <ContinueWith />
-          <GoogleButton GoogleSignin={GoogleSignin} />
-        </AuthCard>
+            <Form.Item
+              name="email"
+              rules={[
+                { required: true, message: 'Please input your email!' },
+
+                {
+                  type: 'email',
+                  message: 'The input is not valid E-mail!'
+                }
+              ]}
+            >
+              <Input placeholder="Email" style={InputStyle} />
+            </Form.Item>
+
+            <Form.Item
+              name="password"
+              rules={[{ required: true, message: 'Please input your password!' }]}
+            >
+              <Input.Password placeholder="Password" style={InputStyle} />
+            </Form.Item>
+            <Row justify="end">
+              <Form.Item>
+                <Button type="primary" htmlType="submit" style={SignUpBtn}>
+                  Sign Up
+                </Button>
+              </Form.Item>
+            </Row>
+          </Form>
+        </AuthLayout>
       </div>
     </React.Fragment>
   );

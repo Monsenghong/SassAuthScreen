@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3002",
     "build": "next build && next export",
     "start": "next start",
     "test": "jest --forceExit",
@@ -17,6 +17,7 @@
     "@stripe/stripe-js": "^1.17.1",
     "antd": "^4.16.13",
     "axios": "^0.21.4",
+    "caniuse-lite": "^1.0.30001480",
     "dotenv": "^10.0.0",
     "firebase": "^8.3.0",
     "formik": "^2.2.6",

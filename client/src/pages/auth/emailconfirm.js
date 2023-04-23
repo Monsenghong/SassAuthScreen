@@ -6,6 +6,6 @@ const EmailConfirmPage = () => {
   return <EmailConfirm />;
 };
 
-EmailConfirmPage.Layout = Layout;
+//EmailConfirmPage.Layout = Layout;
 
 export default EmailConfirmPage;

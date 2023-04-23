@@ -4,7 +4,7 @@ import { colors } from '../../../styles/theme';
 const Button = styled.button`
   padding: 0.5rem 1rem;
   font-weight: 500;
-  width: 100%;
+  width: 146px;
   color: ${colors.white};
   background-color: ${colors.indigo600};
   border: 1px solid transparent;
