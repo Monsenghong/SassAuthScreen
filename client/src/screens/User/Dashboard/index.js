@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext} from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
 import { Empty } from 'antd';
@@ -7,16 +7,16 @@ import AuthContext from '../../../utils/authContext';
 import ApiContext from '../../../utils/apiContext';
 import { breakpoints } from '../../../styles/theme';
 import axios from '../../../services/axios';
-
 import SEO from '../../../components/Marketing/Layout/seo';
 import LoadingOverlay from '../../../components/Common/loadingOverlay';
 import Card from '../../../components/Common/Card';
 import Button from '../../../components/Common/buttons/PrimaryButton';
-
 import DangerButton from '../../../components/Common/buttons/DangerButton';
 import TextInput from '../../../components/Common/forms/TextInput';
 import FieldLabel from '../../../components/Common/forms/FieldLabel';
 import TextInputWrapper from '../../../components/Common/forms/TextInputWrapper';
+
+
 
 const ContentWrapper = styled.div`
   display: flex;
@@ -76,19 +76,27 @@ const AppsWrapper = styled.div`
   padding-bottom: 3rem;
 `;
 
+
+
+
 const Dashboard = () => {
+  
   const { authState } = useContext(AuthContext);
   const { fetchFailure, fetchInit, fetchSuccess, apiState } = useContext(ApiContext);
   const { isLoading } = apiState;
   const [orgs, setOrgs] = useState([]);
   let token = authState?.user.jwt_token;
   const headers = { Authorization: `Bearer ${token}` };
+ 
 
+  
   /* eslint-disable */
   useEffect(() => {
     if (authState.user.id) {
       getOrgs();
     }
+         
+    
   }, [authState]);
   /* eslint-enable */
 
@@ -138,10 +146,12 @@ const Dashboard = () => {
     description: 'Saas Starter Kit Pro Dashboard page'
   };
 
+
   return (
     <React.Fragment>
       <SEO seoData={seoData} />
-      <div>
+    
+    <div>
         {isLoading && <LoadingOverlay />}
         <StyledHeader>Dashboard</StyledHeader>
         <ContentWrapper>
@@ -180,6 +190,7 @@ const Dashboard = () => {
           </CreateAppWrapper>
         </ContentWrapper>
       </div>
+      
     </React.Fragment>
   );
 };

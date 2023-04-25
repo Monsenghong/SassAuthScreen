@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
+import { Router } from 'next/router';
 import AuthLayout from '../../../components/Auth/AuthLayout';
 import AuthContext from '../../../utils/authContext';
 import ApiContext from '../../../utils/apiContext';
@@ -10,11 +10,12 @@ import InputWrapper from '../../../components/Common/forms/TextInputWrapper';
 import Button from '../../../components/Auth/Buttons/authButton';
 import RestPasswordLogo from '../../../../public/auth/forgetpassword.svg';
 import { colors } from '../../../styles/theme';
-import { Row, Col } from 'antd';
+import { Row, Col} from 'antd';
 import Image from 'next/dist/client/image';
-import { Form, Input } from 'antd';
+import { Form, Input,notification } from 'antd';
 import Link from 'next/link';
 import ResetHeader from '../../../components/Auth/header';
+
 
 
 const InputStyle = { height: '50px', borderRadius: '8px' };
@@ -23,25 +24,28 @@ const InputStyle = { height: '50px', borderRadius: '8px' };
 const ResetPassword = () => {
   const { firebase } = useContext(AuthContext);
   const { fetchFailure, fetchInit, fetchSuccess, apiState } = useContext(ApiContext);
-  const { isLoading } = apiState;
+  
+  const { isLoading} = apiState;
+
   const [success, setSuccess] = useState(false);
 
   const handleSubmit = async (values) => {
-    console.log('Submited');
-
+  
     fetchInit();
 
     let email = values.email;
-    console.log('email:' + email);
+   
     await firebase
       .auth()
-      .sendPasswordResetEmail(email)
-      .catch((err) => {
-        fetchFailure(err);
+      .sendPasswordResetEmail(email).catch((error) => {
+         fetchFailure(error);   
       });
+        
+        setSuccess(true);
+        fetchSuccess();
 
-    setSuccess(true);
-    fetchSuccess();
+      
+    
   };
 
   const seoData = {

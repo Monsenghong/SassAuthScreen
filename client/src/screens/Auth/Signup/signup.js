@@ -8,7 +8,7 @@ import { ValidSchema, SignupAuth } from '../helpers';
 import SEO from '../../../components/Marketing/Layout/seo';
 import Button from '../../../components/Auth/Buttons/authButton';
 import LoadingOverlay from '../../../components/Common/loadingOverlay';
-import SignUpFormHeader from './signupFormHeader';
+
 import AuthLayout from '../../../components/Auth/AuthLayout';
 import SignUpLogo from '../../../../public/auth/register.svg';
 import SignUpHeader from '../../../components/Auth/header';
